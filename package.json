@@ -3,6 +3,7 @@
   "displayName": "History in Sublime Merge",
   "description": "Open files in Sublime Merge",
   "version": "1.0.0",
+  "publisher": "adhamu",
   "engines": {
     "vscode": "^1.45.0"
   },
