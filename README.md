@@ -1,20 +1,20 @@
-# history-in-sublime-merge README
+# History In Sublime Merge
 
-This is the README for your extension "history-in-sublime-merge". After writing up a brief description, we recommend including the following sections.
+Adds Sublime Merge commands to VSCode/VSCodium
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- View File History
+- View Line History
+- Blame File
 
-For example if there is an image subfolder under your extension project workspace:
+All commands are available in the Command Palette and Context Menus for the Explorer and Editor.
 
-\!\[feature X\]\(images/feature-x.png\)
+## Installation
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+```sh
+ext install adhamu.history-in-sublime-merge
+```
 
 ## Extension Settings
 
