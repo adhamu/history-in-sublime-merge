@@ -56,6 +56,16 @@ const viewLineHistory = async () => {
   }
 };
 
+const blameFile = async () => {
+  if (vscode.window.activeTextEditor) {
+    const { path, repository } = await getFileDetails(
+      vscode.window.activeTextEditor
+    );
+
+    openSublimeMerge(['blame', path], repository);
+  }
+};
+
 export function activate(context: vscode.ExtensionContext) {
   const viewFileHistoryCommand = vscode.commands.registerCommand(
     'history-in-sublime-merge.viewFileHistory',
@@ -67,8 +77,14 @@ export function activate(context: vscode.ExtensionContext) {
     viewLineHistory
   );
 
+  const blameFileCommand = vscode.commands.registerCommand(
+    'history-in-sublime-merge.blameFile',
+    blameFile
+  );
+
   context.subscriptions.push(viewFileHistoryCommand);
   context.subscriptions.push(viewLineHistoryCommand);
+  context.subscriptions.push(blameFileCommand);
 }
 
 export function deactivate() {}

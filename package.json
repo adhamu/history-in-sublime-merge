@@ -2,7 +2,7 @@
   "name": "history-in-sublime-merge",
   "displayName": "History in Sublime Merge",
   "description": "Open files in Sublime Merge",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.45.0"
   },
@@ -11,7 +11,8 @@
   ],
   "activationEvents": [
     "onCommand:history-in-sublime-merge.viewFileHistory",
-    "onCommand:history-in-sublime-merge.viewLineHistory"
+    "onCommand:history-in-sublime-merge.viewLineHistory",
+    "onCommand:history-in-sublime-merge.blameFile"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -25,6 +26,11 @@
         "command": "history-in-sublime-merge.viewLineHistory",
 				"title": "View Line History in Sublime Merge",
 				"category": "Sublime Merge"
+      },
+			{
+        "command": "history-in-sublime-merge.blameFile",
+				"title": "Blame file in Sublime Merge",
+				"category": "Sublime Merge"
       }
     ],
     "menus": {
@@ -36,6 +42,10 @@
 				{
           "command": "history-in-sublime-merge.viewLineHistory",
           "group": "YourGroup@2"
+        },
+				{
+          "command": "history-in-sublime-merge.blameFile",
+          "group": "YourGroup@3"
         }
 			],
 			"editor/context": [
@@ -46,6 +56,10 @@
 				{
           "command": "history-in-sublime-merge.viewLineHistory",
           "group": "YourGroup@2"
+        },
+				{
+          "command": "history-in-sublime-merge.blameFile",
+          "group": "YourGroup@3"
         }
       ]
     }
