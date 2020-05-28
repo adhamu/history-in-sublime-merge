@@ -27,7 +27,7 @@ const openSublimeMerge = (args: string[], repository: string): void => {
 const getFileDetails = async (
   editor: vscode.TextEditor
 ): Promise<FileDetails> => {
-  const repository: string | null = await getCurrentRepository(
+  const repository: string = await getCurrentRepository(
     editor.document.uri.path
   );
 
