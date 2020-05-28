@@ -2,7 +2,7 @@
   "name": "history-in-sublime-merge",
   "displayName": "History in Sublime Merge",
   "description": "Open files in Sublime Merge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "adhamu",
   "repository": "https://github.com/adhamu/history-in-sublime-merge.git",
   "engines": {
@@ -25,18 +25,18 @@
     "commands": [
       {
         "command": "history-in-sublime-merge.viewFileHistory",
-				"title": "View File History in Sublime Merge",
-				"category": "Sublime Merge"
-			},
-			{
-        "command": "history-in-sublime-merge.viewLineHistory",
-				"title": "View Line History in Sublime Merge",
-				"category": "Sublime Merge"
+        "title": "View File History in Sublime Merge",
+        "category": "Sublime Merge"
       },
-			{
+      {
+        "command": "history-in-sublime-merge.viewLineHistory",
+        "title": "View Line History in Sublime Merge",
+        "category": "Sublime Merge"
+      },
+      {
         "command": "history-in-sublime-merge.blameFile",
-				"title": "Blame file in Sublime Merge",
-				"category": "Sublime Merge"
+        "title": "Blame file in Sublime Merge",
+        "category": "Sublime Merge"
       }
     ],
     "menus": {
@@ -44,26 +44,26 @@
         {
           "command": "history-in-sublime-merge.viewFileHistory",
           "group": "YourGroup@1"
-				},
-				{
+        },
+        {
           "command": "history-in-sublime-merge.viewLineHistory",
           "group": "YourGroup@2"
         },
-				{
+        {
           "command": "history-in-sublime-merge.blameFile",
           "group": "YourGroup@3"
         }
-			],
-			"editor/context": [
+      ],
+      "editor/context": [
         {
           "command": "history-in-sublime-merge.viewFileHistory",
           "group": "YourGroup@1"
         },
-				{
+        {
           "command": "history-in-sublime-merge.viewLineHistory",
           "group": "YourGroup@2"
         },
-				{
+        {
           "command": "history-in-sublime-merge.blameFile",
           "group": "YourGroup@3"
         }
