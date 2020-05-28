@@ -13,8 +13,6 @@ const getCurrentRepository = async (file: string): Promise<string | null> => {
 };
 
 const openSublimeMerge = (args: string[], repository: string) => {
-  console.log(args);
-
   child.execFile('smerge', args, {
     cwd: repository,
   });
