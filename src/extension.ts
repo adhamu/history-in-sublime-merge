@@ -74,7 +74,7 @@ const blameFile = async (): Promise<void> => {
   }
 };
 
-export const activate = (context: vscode.ExtensionContext) => {
+export const activate = (context: vscode.ExtensionContext): void => {
   const extensionName = 'history-in-sublime-merge';
 
   context.subscriptions.push(
@@ -94,4 +94,4 @@ export const activate = (context: vscode.ExtensionContext) => {
   );
 };
 
-export const deactivate = () => {};
+export const deactivate = (): void => {};
