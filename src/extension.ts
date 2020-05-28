@@ -9,7 +9,7 @@ type FileDetails = {
   repository: string;
 };
 
-const getCurrentRepository = async (file: string): Promise<string | null> => {
+const getCurrentRepository = async (file: string): Promise<string> => {
   const repository = await findUp('.git', {
     cwd: path.dirname(file),
     type: 'directory',
