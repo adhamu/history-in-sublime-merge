@@ -6,8 +6,12 @@
   "engines": {
     "vscode": "^1.45.0"
   },
+  "author": {
+    "name": "adhamu"
+  },
+  "icon": "sublime-merge.png",
   "categories": [
-    "Other"
+    "SCM Providers"
   ],
   "activationEvents": [
     "onCommand:history-in-sublime-merge.viewFileHistory",
