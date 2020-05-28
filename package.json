@@ -4,6 +4,7 @@
   "description": "Open files in Sublime Merge",
   "version": "1.0.0",
   "publisher": "adhamu",
+  "repository": "https://github.com/adhamu/history-in-sublime-merge.git",
   "engines": {
     "vscode": "^1.45.0"
   },
