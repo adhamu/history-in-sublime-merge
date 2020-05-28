@@ -27,7 +27,9 @@ const openSublimeMerge = (args: string[], repository: string): void => {
 const getFileDetails = async (
   editor: vscode.TextEditor
 ): Promise<FileDetails> => {
-  const repository: string | null = await getCurrentRepository(editor.document.uri.path);
+  const repository: string | null = await getCurrentRepository(
+    editor.document.uri.path
+  );
 
   return {
     path: editor.document.uri.path.replace(`${repository}/`, ''),
@@ -73,24 +75,23 @@ const blameFile = async (): Promise<void> => {
 };
 
 export const activate = (context: vscode.ExtensionContext) => {
-  const viewFileHistoryCommand = vscode.commands.registerCommand(
-    'history-in-sublime-merge.viewFileHistory',
-    viewFileHistory
-  );
+  const extensionName = 'history-in-sublime-merge';
 
-  const viewLineHistoryCommand = vscode.commands.registerCommand(
-    'history-in-sublime-merge.viewLineHistory',
-    viewLineHistory
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      `${extensionName}.viewFileHistory`,
+      viewFileHistory
+    )
   );
-
-  const blameFileCommand = vscode.commands.registerCommand(
-    'history-in-sublime-merge.blameFile',
-    blameFile
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      `${extensionName}.viewLineHistory`,
+      viewLineHistory
+    )
   );
-
-  context.subscriptions.push(viewFileHistoryCommand);
-  context.subscriptions.push(viewLineHistoryCommand);
-  context.subscriptions.push(blameFileCommand);
+  context.subscriptions.push(
+    vscode.commands.registerCommand(`${extensionName}.blameFile`, blameFile)
+  );
 };
 
 export const deactivate = () => {};
