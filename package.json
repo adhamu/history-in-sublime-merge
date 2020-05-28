@@ -2,7 +2,7 @@
   "name": "history-in-sublime-merge",
   "displayName": "History in Sublime Merge",
   "description": "Open files in Sublime Merge",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "publisher": "adhamu",
   "repository": "https://github.com/adhamu/history-in-sublime-merge.git",
   "engines": {
