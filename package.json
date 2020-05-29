@@ -35,7 +35,7 @@
       },
       {
         "command": "history-in-sublime-merge.blameFile",
-        "title": "Blame file in Sublime Merge",
+        "title": "Blame File in Sublime Merge",
         "category": "Sublime Merge"
       }
     ],
