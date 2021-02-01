@@ -76,7 +76,7 @@
     "onCommand:history-in-sublime-merge.blameFile"
   ],
   "dependencies": {
-    "find-up": "^4.1.0"
+    "find-up": "^5.0.0"
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",
