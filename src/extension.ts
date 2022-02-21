@@ -4,10 +4,12 @@ import * as findUp from 'find-up';
 import * as path from 'path';
 
 type FileDetails = {
-  path: string;
-  currentLineNumber: number;
-  repository: string;
+  path: string
+  currentLineNumber: number
+  repository: string
 };
+
+let SMERGE_BINARY_PATH: string;
 
 const getCurrentRepository = async (file: string): Promise<string> => {
   const repository = await findUp('.git', {
@@ -19,7 +21,7 @@ const getCurrentRepository = async (file: string): Promise<string> => {
 };
 
 const openSublimeMerge = (args: string[], repository: string): void => {
-  child.execFile('/Applications/Sublime\ Merge.app/Contents/SharedSupport/bin/smerge', args, {
+  child.execFile(SMERGE_BINARY_PATH, args, {
     cwd: repository,
   });
 };
@@ -74,8 +76,20 @@ const blameFile = async (): Promise<void> => {
   }
 };
 
+const getSmergeBinaryPath = () => {
+  switch (process.platform) {
+    case 'win32':
+      return 'smerge';
+    case 'darwin':
+      return '/Applications/Sublime\ Merge.app/Contents/SharedSupport/bin/smerge';
+    default:
+      return '/opt/sublime_merge/sublime_merge';
+  }
+};
+
 export const activate = (context: vscode.ExtensionContext): void => {
   const extensionName = 'history-in-sublime-merge';
+  SMERGE_BINARY_PATH = getSmergeBinaryPath();
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
