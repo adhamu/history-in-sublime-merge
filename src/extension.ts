@@ -25,12 +25,7 @@ const openSublimeMerge = (args: string[], repository: string): void => {
     .getConfiguration()
     .get('history-in-sublime-merge.path');
 
-  const path =
-    typeof customPath === 'string' && customPath
-      ? customPath
-      : SMERGE_BINARY_PATH;
-
-  child.execFile(path, args, {
+  child.execFile(customPath || SMERGE_BINARY_PATH, args, {
     cwd: repository,
   });
 };

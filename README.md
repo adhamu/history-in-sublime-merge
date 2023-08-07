@@ -37,7 +37,7 @@ All commands are available in the Command Palette and Context Menus for the Expl
 ext install adhamu.history-in-sublime-merge
 ```
 
-## Requirements for Windows
+## Requirements
 
 Ensure the `smerge` command is in your `$PATH`.
 
