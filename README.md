@@ -42,3 +42,9 @@ ext install adhamu.history-in-sublime-merge
 Ensure the `smerge` command is in your `$PATH`.
 
 [Details can be found here](https://www.sublimemerge.com/docs/command_line)
+
+## Settings
+
+### `history-in-sublime-merge.path`
+
+Edit this value to override the path to Sublime Merge. When not set, the default path, depending on the operating system, is used.

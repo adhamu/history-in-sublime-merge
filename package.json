@@ -68,7 +68,18 @@
           "group": "YourGroup@3"
         }
       ]
-    }
+    },
+    "configuration": [
+      {
+        "title": "History in Sublime Merge",
+        "properties": {
+          "history-in-sublime-merge.path": {
+            "type": "string",
+            "markdownDescription": "Path to Sublime Merge. When not set, the default path, depending on the operating system, is used."
+          }
+        }
+      }
+    ]
   },
   "activationEvents": [
     "onCommand:history-in-sublime-merge.viewFileHistory",

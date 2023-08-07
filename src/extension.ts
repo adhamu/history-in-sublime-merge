@@ -21,7 +21,11 @@ const getCurrentRepository = async (file: string): Promise<string> => {
 };
 
 const openSublimeMerge = (args: string[], repository: string): void => {
-  child.execFile(SMERGE_BINARY_PATH, args, {
+  const customPath = vscode.workspace
+    .getConfiguration()
+    .get<string>('history-in-sublime-merge.path');
+
+  child.execFile(customPath || SMERGE_BINARY_PATH, args, {
     cwd: repository,
   });
 };
