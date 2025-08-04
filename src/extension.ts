@@ -5,7 +5,8 @@ import * as path from 'path';
 
 type FileDetails = {
   path: string
-  currentLineNumber: number
+  selectionStart: number
+  selectionEnd: number
   repository: string
 };
 
@@ -39,7 +40,8 @@ const getFileDetails = async (
 
   return {
     path: editor.document.uri.path.replace(`${repository}/`, ''),
-    currentLineNumber: editor.selection.active.line + 1,
+    selectionStart: editor.selection.start.line + 1,
+    selectionEnd: editor.selection.end.line + 1,
     repository: repository ?? '',
   };
 };
@@ -56,15 +58,11 @@ const viewFileHistory = async (): Promise<void> => {
 
 const viewLineHistory = async (): Promise<void> => {
   if (vscode.window.activeTextEditor) {
-    const { path, repository, currentLineNumber } = await getFileDetails(
-      vscode.window.activeTextEditor
-    );
+    const { path, repository, selectionStart, selectionEnd } =
+      await getFileDetails(vscode.window.activeTextEditor);
 
     openSublimeMerge(
-      [
-        'search',
-        `file:"${path}" line:${currentLineNumber}-${currentLineNumber}`,
-      ],
+      ['search', `file:"${path}" line:${selectionStart}-${selectionEnd}`],
       repository
     );
   }
