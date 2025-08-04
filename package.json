@@ -24,6 +24,11 @@
   "contributes": {
     "commands": [
       {
+        "command": "history-in-sublime-merge.openRepository",
+        "title": "Open repository in Sublime Merge",
+        "category": "Sublime Merge"
+      },
+      {
         "command": "history-in-sublime-merge.viewFileHistory",
         "title": "View File History in Sublime Merge",
         "category": "Sublime Merge"
@@ -82,6 +87,7 @@
     ]
   },
   "activationEvents": [
+    "onCommand:history-in-sublime-merge.openRepository",
     "onCommand:history-in-sublime-merge.viewFileHistory",
     "onCommand:history-in-sublime-merge.viewLineHistory",
     "onCommand:history-in-sublime-merge.blameFile"

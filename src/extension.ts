@@ -11,9 +11,12 @@ type FileDetails = {
 
 let SMERGE_BINARY_PATH: string;
 
-const getCurrentRepository = async (file: string): Promise<string> => {
+const getRepository = async (
+  element: string,
+  elementType: 'file' | 'directory'
+): Promise<string> => {
   const repository = await findUp('.git', {
-    cwd: path.dirname(file),
+    cwd: elementType === 'file' ? path.dirname(element) : element,
     type: 'directory',
   });
 
@@ -33,8 +36,9 @@ const openSublimeMerge = (args: string[], repository: string): void => {
 const getFileDetails = async (
   editor: vscode.TextEditor
 ): Promise<FileDetails> => {
-  const repository: string = await getCurrentRepository(
-    editor.document.uri.path
+  const repository: string = await getRepository(
+    editor.document.uri.path,
+    'file'
   );
 
   return {
@@ -42,6 +46,30 @@ const getFileDetails = async (
     currentLineNumber: editor.selection.active.line + 1,
     repository: repository ?? '',
   };
+};
+
+const openRepository = async (): Promise<void> => {
+  let repository: string | undefined;
+
+  if (vscode.workspace.workspaceFolders?.length === 1) {
+    repository = await getRepository(
+      vscode.workspace.workspaceFolders[0].uri.path,
+      'directory'
+    );
+  } else if (vscode.window.activeTextEditor) {
+    repository = (await getFileDetails(vscode.window.activeTextEditor))
+      .repository;
+  }
+
+  if (!repository) {
+    vscode.window.showWarningMessage(
+      'Unable to resolve the repository to open.'
+    );
+
+    return;
+  }
+
+  openSublimeMerge(['.'], repository);
 };
 
 const viewFileHistory = async (): Promise<void> => {
@@ -95,6 +123,12 @@ export const activate = (context: vscode.ExtensionContext): void => {
   const extensionName = 'history-in-sublime-merge';
   SMERGE_BINARY_PATH = getSmergeBinaryPath();
 
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      `${extensionName}.openRepository`,
+      openRepository
+    )
+  );
   context.subscriptions.push(
     vscode.commands.registerCommand(
       `${extensionName}.viewFileHistory`,
