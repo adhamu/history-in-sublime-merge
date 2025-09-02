@@ -15,13 +15,21 @@ let SMERGE_BINARY_PATH: string;
 const getRepository = async (
   element: string,
   elementType: 'file' | 'directory'
-): Promise<string> => {
+): Promise<string | undefined> => {
   const repository = await findUp('.git', {
     cwd: elementType === 'file' ? path.dirname(element) : element,
     type: 'directory',
   });
 
-  return path.dirname(repository ?? '');
+  if (!repository) {
+    vscode.window.showWarningMessage(
+      'Unable to resolve the repository to open.'
+    );
+
+    return;
+  }
+
+  return path.dirname(repository);
 };
 
 const openSublimeMerge = (args: string[], repository: string): void => {
@@ -36,11 +44,12 @@ const openSublimeMerge = (args: string[], repository: string): void => {
 
 const getFileDetails = async (
   editor: vscode.TextEditor
-): Promise<FileDetails> => {
-  const repository: string = await getRepository(
-    editor.document.uri.path,
-    'file'
-  );
+): Promise<FileDetails | undefined> => {
+  const repository = await getRepository(editor.document.uri.path, 'file');
+
+  if (!repository) {
+    return;
+  }
 
   return {
     path: editor.document.uri.path.replace(`${repository}/`, ''),
@@ -60,49 +69,59 @@ const openRepository = async (): Promise<void> => {
     );
   } else if (vscode.window.activeTextEditor) {
     repository = (await getFileDetails(vscode.window.activeTextEditor))
-      .repository;
-  }
-
-  if (!repository) {
+      ?.repository;
+  } else {
     vscode.window.showWarningMessage(
       'Unable to resolve the repository to open.'
     );
+  }
 
+  if (!repository) {
     return;
   }
 
   openSublimeMerge(['.'], repository);
 };
 
-const viewFileHistory = async (): Promise<void> => {
-  if (vscode.window.activeTextEditor) {
-    const { path, repository } = await getFileDetails(
-      vscode.window.activeTextEditor
-    );
+const openFile = async (
+  file: vscode.Uri,
+  action: 'search' | 'blame'
+): Promise<void> => {
+  const path = file.path;
 
-    openSublimeMerge(['search', `file:"${path}"`], repository);
+  if (!path) {
+    vscode.window.showWarningMessage("Unable to resolve the file's path.");
+
+    return;
   }
+
+  const repository = await getRepository(path, 'file');
+
+  if (!repository) {
+    return;
+  }
+
+  openSublimeMerge(
+    [action, action === 'search' ? `file:"${path}"` : path],
+    repository
+  );
 };
 
 const viewLineHistory = async (): Promise<void> => {
   if (vscode.window.activeTextEditor) {
-    const { path, repository, selectionStart, selectionEnd } =
-      await getFileDetails(vscode.window.activeTextEditor);
+    const fileDetails = await getFileDetails(vscode.window.activeTextEditor);
+
+    if (!fileDetails) {
+      return;
+    }
 
     openSublimeMerge(
-      ['search', `file:"${path}" line:${selectionStart}-${selectionEnd}`],
-      repository
+      [
+        'search',
+        `file:"${fileDetails.path}" line:${fileDetails.selectionStart}-${fileDetails.selectionEnd}`,
+      ],
+      fileDetails.repository
     );
-  }
-};
-
-const blameFile = async (): Promise<void> => {
-  if (vscode.window.activeTextEditor) {
-    const { path, repository } = await getFileDetails(
-      vscode.window.activeTextEditor
-    );
-
-    openSublimeMerge(['blame', path], repository);
   }
 };
 
@@ -130,7 +149,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
   context.subscriptions.push(
     vscode.commands.registerCommand(
       `${extensionName}.viewFileHistory`,
-      viewFileHistory
+      (file) => openFile(file, 'search')
     )
   );
   context.subscriptions.push(
@@ -140,7 +159,9 @@ export const activate = (context: vscode.ExtensionContext): void => {
     )
   );
   context.subscriptions.push(
-    vscode.commands.registerCommand(`${extensionName}.blameFile`, blameFile)
+    vscode.commands.registerCommand(`${extensionName}.blameFile`, (file) =>
+      openFile(file, 'blame')
+    )
   );
 };
 

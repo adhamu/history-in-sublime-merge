@@ -13,23 +13,22 @@ Whatever file you have open, it will traverse up the directory structure and fin
 
 ## Features
 
+- Open Repository
 - View File History
 - View Line History
 - Blame File
 
 ### Command Palette
 
-![Command Palette](https://raw.githubusercontent.com/adhamu/history-in-sublime-merge/master/command-palette.png)
+![Command Palette](./command-palette.webp)
 
 ### Explorer Context Menu
 
-![Explorer Context Menu](https://raw.githubusercontent.com/adhamu/history-in-sublime-merge/master/explorer-context.png)
+![Explorer Context Menu](./explorer-context.webp)
 
 ### Editor Context Menu
 
-![Editor Context Menu](https://raw.githubusercontent.com/adhamu/history-in-sublime-merge/master/editor-context.png)
-
-All commands are available in the Command Palette and Context Menus for the Explorer and Editor.
+![Editor Context Menu](./editor-context.webp)
 
 ## Installation
 
