@@ -1,7 +1,7 @@
 {
   "name": "history-in-sublime-merge",
   "displayName": "History in Sublime Merge",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Open files in Sublime Merge",
   "categories": [
     "SCM Providers"
